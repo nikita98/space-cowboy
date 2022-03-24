@@ -34,10 +34,9 @@ export default {
     margin-left: 10px;
     background: linear-gradient(
       90deg,
-      rgba(228, 1, 1, 1),
-      rgba(255, 150, 30, 1) 33%,
-      rgba(235, 255, 40, 1) 66%,
-      rgba(24, 228, 0, 1) 87%
+      rgb(231, 0, 89),
+      rgb(155, 0, 226) 50%,
+      rgb(0, 4, 228) 87%
     );
     position: relative;
     overflow: hidden;

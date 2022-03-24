@@ -32,9 +32,8 @@ export default {
     ...mapGetters(["GETGAMESTATS", "GETOBJECTSBYID"]),
     y: function () {
       return (
-        ((this.x + this.center[0]) * (this.x + this.center[0]) +
-          this.center[1]) /
-        this.Yfactor
+        ((this.x + this.center[0]) * (this.x + this.center[0])) / this.Yfactor +
+        this.center[1]
       );
     },
     xPos: function () {
@@ -52,6 +51,7 @@ export default {
     ];
     this.Yfactor = Math.random() * 300 + 50;
     this.Xfactor = Math.random() * this.GETGAMESTATS.field.width;
+    this.center[1] *= Math.random();
     this.x = -this.Xfactor;
     this.side = Math.random() > 0.5 ? true : false;
     this.startMoving = setInterval(this.move, 20);

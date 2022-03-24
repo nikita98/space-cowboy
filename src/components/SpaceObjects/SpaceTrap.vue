@@ -35,7 +35,7 @@ export default {
     touched: {
       handler(newValue) {
         if (newValue) {
-          this.TAKEDMG(1);
+          this.TAKEDMG(2);
           this.SETTOUCHOBJECT({ id: this.id, value: false });
         }
       },

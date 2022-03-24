@@ -23,7 +23,17 @@ export default {
     ...mapGetters(["GETOBJECTS", "GETSHIP", "GETGAMESTATS", "ISGAMESTART"]),
   },
   methods: {
-    ...mapMutations(["ADDFIELDOBJECT", "ADDCOMET"]),
+    ...mapMutations([
+      "ADDFIELDOBJECT",
+      "ADDCOMET",
+      "SETDOCVISIBLE",
+      "CLEAROBJ",
+      "STOPGAME",
+    ]),
+    addFieldObject1000: () => {},
+    addComet2000: () => {},
+    addComet300: () => {},
+    addComet700: () => {},
     addFieldObject(type) {
       let objSetted = 0;
       let mainObjSize = this.GETGAMESTATS.sizes[type];
@@ -72,12 +82,31 @@ export default {
     },
   },
   mounted() {
-    setInterval(this.addFieldObject, 1000, "trap");
-    setInterval(this.addComet, 2000);
-    setInterval(this.addComet, 300);
-    setInterval(this.addComet, 700);
+    this.addFieldObject1000 = setInterval(this.addFieldObject, 1000, "trap");
+    this.addComet2000 = setInterval(this.addComet, 2000);
+    this.addComet300 = setInterval(this.addComet, 300);
+    this.addComet700 = setInterval(this.addComet, 700);
     // setInterval(this.addFieldObject, 900, "coin");
     // this.addFieldObject("trap");
+    document.addEventListener(
+      "visibilitychange",
+      () => {
+        if (document.hidden) {
+          this.SETDOCVISIBLE(false);
+        } else {
+          this.SETDOCVISIBLE(true);
+          this.STOPGAME();
+          this.CLEAROBJ();
+        }
+      },
+      false
+    );
+  },
+  unmounted() {
+    clearInterval(this.addFieldObject1000);
+    clearInterval(this.addComet2000);
+    clearInterval(this.addComet300);
+    clearInterval(this.addComet700);
   },
   watch: {
     ISGAMESTART: {
@@ -94,6 +123,7 @@ export default {
 
 <style lang="scss" scoped>
 .game {
+  cursor: url("../assets/c3.cur") 11 11, pointer;
   &__wrapper {
     position: relative;
     padding: 1px;

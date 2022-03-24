@@ -83,6 +83,7 @@ export default {
   position: absolute;
   transform: translate(-50%, -50%);
   border: 1px solid #fff;
+  background-color: #fff;
   border-radius: 50%;
   pointer-events: none;
 }
