@@ -1,28 +1,26 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/" class="main-link">
-        <div class="neone-text">
-          <span class="neone-text__txt">Space cowboy</span>
-          <span class="neone-text__shadow">Space cowboy</span>
-          <span class="neone-text__gradient"></span>
-        </div>
-        <div class="neone-text neone-text_addition">
-          <span class="neone-text__txt">One leg edition</span>
-          <span class="neone-text__shadow">One leg edition</span>
-          <span class="neone-text__gradient"></span>
-        </div>
-      </router-link>
-      <router-link to="/about" class="info-link">
-        <div class="neone-text">
-          <span class="neone-text__txt">Score</span>
-          <span class="neone-text__shadow">Score</span>
-          <span class="neone-text__gradient"></span>
-        </div>
-      </router-link>
-    </div>
-    <router-view />
+  <div id="nav">
+    <router-link to="/" class="main-link">
+      <div class="neone-text">
+        <span class="neone-text__txt">Space cowboy</span>
+        <span class="neone-text__shadow">Space cowboy</span>
+        <span class="neone-text__gradient"></span>
+      </div>
+      <div class="neone-text neone-text_addition">
+        <span class="neone-text__txt">One leg edition</span>
+        <span class="neone-text__shadow">One leg edition</span>
+        <span class="neone-text__gradient"></span>
+      </div>
+    </router-link>
+    <router-link to="/about" class="info-link">
+      <div class="neone-text">
+        <span class="neone-text__txt">Score</span>
+        <span class="neone-text__shadow">Score</span>
+        <span class="neone-text__gradient"></span>
+      </div>
+    </router-link>
   </div>
+  <router-view />
 </template>
 
 <style lang="scss">

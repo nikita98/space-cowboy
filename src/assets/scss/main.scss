@@ -1,5 +1,20 @@
 @import '../fonts/fonts';
+@import './auth';
 
+
+.link {
+    color: rgb(124, 155, 255);
+    cursor: pointer;
+    font-style: italic;
+    text-decoration: underline;
+    transition: 0.3s;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 100;
+
+    &:hover {
+        color: rgb(176, 107, 255);
+    }
+}
 
 .btn {
     padding: 10px 15px;
@@ -14,6 +29,11 @@
         border: 1px solid rgb(176, 107, 255);
         color: rgb(176, 107, 255);
     }
+
+    &.error {
+        border: 1px solid rgb(255, 124, 124);
+        color: rgb(255, 124, 124);
+    }
 }
 
 * {
@@ -23,8 +43,10 @@
 }
 
 html,
-body {
+body,
+#app {
     height: 100%;
+    overflow: hidden;
 }
 
 body {

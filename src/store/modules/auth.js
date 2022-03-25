@@ -2,16 +2,16 @@
 import { auth } from '../../firebase/config'
 
 import {
+    setPersistence,
+    browserLocalPersistence,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
-    // onAuthStateChanged
 } from 'firebase/auth'
 
-const store = {
+export default {
     state: {
         user: null,
-        authIsReady: false
     },
     getters: {
         GETUSER: state => state.user,
@@ -21,47 +21,32 @@ const store = {
             state.user = payload
             console.log('user state changed:', state.user)
         },
-        setAuthIsReady(state, payload) {
-            state.authIsReady = payload
-        }
     },
     actions: {
-        async signup(context, { email, password }) {
-            console.log('signup action')
-
-            const res = await createUserWithEmailAndPassword(auth, email, password)
-            if (res) {
-                context.commit('setUser', res.user)
-            } else {
-                throw new Error('could not complete signup')
+        async REGISTRATION(context, { email, password }) {
+            setPersistence(auth, browserLocalPersistence)
+            try {
+                await createUserWithEmailAndPassword(auth, email, password)
+                context.commit('setUser', { email, password })
+            } catch (e) {
+                throw new Error(e)
             }
+
         },
+
         async LOGIN(context, { email, password }) {
-            console.log('login action')
-
-            const res = await signInWithEmailAndPassword(auth, email, password)
-            if (res) {
-                context.commit('setUser', res.user)
-            } else {
-                throw new Error('could not complete login')
+            setPersistence(auth, browserLocalPersistence)
+            try {
+                await signInWithEmailAndPassword(auth, email, password)
+                context.commit('setUser', { email, password })
+            } catch (e) {
+                throw new Error(e)
             }
         },
-        async logout(context) {
-            console.log('logout action')
 
+        async LOGOUT(context) {
             await signOut(auth)
             context.commit('setUser', null)
         }
     }
 }
-
-// wait until auth is ready
-// const unsub = onAuthStateChanged(auth, (user) => {
-//     store.commit('setAuthIsReady', true)
-//     store.commit('setUser', user)
-//     unsub()
-// })
-
-
-// export the store
-export default store

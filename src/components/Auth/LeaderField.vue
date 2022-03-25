@@ -1,7 +1,7 @@
 <template>
   <div class="leader">
-    <div class="leader__name">{{ name }}asd</div>
-    <div class="leader__score">{{ score }}123</div>
+    <div class="leader__name">{{ name }}asdsadss@adsss/ru</div>
+    <div class="leader__score">{{ score }}222</div>
   </div>
 </template>
 
@@ -16,8 +16,13 @@ export default {
 
 <style lang="scss" scoped>
 .leader {
-  width: 100%;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 5px;
+  transform: perspective(200px) rotateX(40deg);
+  font-size: 30px;
+  &__name {
+    margin-right: 20px;
+  }
 }
 </style>

@@ -118,6 +118,4 @@ export default {
       state.fieldObjects = [];
     },
   },
-  actions: {
-  },
 }
