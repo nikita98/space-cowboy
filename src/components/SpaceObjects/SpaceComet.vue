@@ -4,8 +4,8 @@
     :style="{
       left: xPos + 'px',
       top: y + 'px',
-      width: '15px',
-      height: '15px',
+      width: size + 'px',
+      height: size + 'px',
     }"
   ></div>
 </template>
@@ -24,9 +24,21 @@ export default {
       x: -200,
       Yfactor: 50,
       Xfactor: 200,
-      side: 1,
-      center: [200, 200],
+      side: true, //отражение траектории по оси X
+      center: [200, 200], //центр пораболы, по которой летит комета
     };
+  },
+  mounted() {
+    this.center = [
+      Math.random() * this.GETGAMESTATS.field.width,
+      Math.random() * this.GETGAMESTATS.field.height,
+    ];
+    this.Yfactor = Math.random() * 300 + 50;
+    this.Xfactor = Math.random() * this.GETGAMESTATS.field.width;
+    this.center[1] *= Math.random();
+    this.x = -this.Xfactor;
+    this.side = Math.random() > 0.5 ? true : false;
+    this.startMoving = setInterval(this.move, 20);
   },
   computed: {
     ...mapGetters(["GETGAMESTATS", "GETOBJECTSBYID"]),
@@ -43,18 +55,6 @@ export default {
         return this.x + this.Xfactor;
       }
     },
-  },
-  mounted() {
-    this.center = [
-      Math.random() * this.GETGAMESTATS.field.width,
-      Math.random() * this.GETGAMESTATS.field.height,
-    ];
-    this.Yfactor = Math.random() * 300 + 50;
-    this.Xfactor = Math.random() * this.GETGAMESTATS.field.width;
-    this.center[1] *= Math.random();
-    this.x = -this.Xfactor;
-    this.side = Math.random() > 0.5 ? true : false;
-    this.startMoving = setInterval(this.move, 20);
   },
   watch: {
     touched: {
@@ -99,7 +99,6 @@ export default {
   transform: translate(-50%, -50%);
   width: 20px;
   height: 20px;
-  // border: 1px solid #da22ff;
   border: 1px solid #10ec6c;
   border-radius: 50%;
   display: flex;

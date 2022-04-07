@@ -29,6 +29,7 @@
       v-for="obj in GETOBJECTSBYTYPE('comet')"
       :key="obj.id"
       :id="obj.id"
+      :size="obj.size"
       :touched="obj.touched"
     />
   </div>

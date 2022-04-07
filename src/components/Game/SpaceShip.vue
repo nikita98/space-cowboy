@@ -27,12 +27,17 @@ export default {
   methods: {
     ...mapMutations(["MOVESHIP", "SETTOUCHOBJECT"]),
     move() {
+      //расстояние между мышью и кораблём (катеты)
       let xLength = this.finishX - this.currentX;
       let yLength = this.finishY - this.currentY;
       if (Math.abs(xLength) > 2 || Math.abs(yLength) > 2) {
+        //считаем гипотенузу без квадратов (я не знаю, почему это работает)
         let summLength = Math.abs(xLength) + Math.abs(yLength);
+        //коэфицент, который тем больше, чем ближе угл к любой диагонали
+        //нужен для ускорения, чтобы время пути по катетам было больше, чем время пути по гипотенузе
         let xDeg = 1 / (summLength / Math.abs(xLength));
         let yDeg = 1 - xDeg;
+        //чем ближе мы к горизонтальному углу, тем больше скорость (от 1го до корня из 2х)
         let factor = Math.sqrt(2) - (Math.sqrt(2) - 1) * Math.abs(xDeg - 0.5);
         xDeg *= factor;
         yDeg *= factor;
@@ -51,6 +56,7 @@ export default {
 
       this.checkObjTouch();
     },
+    //проверяем, врезались ли мы куда-то
     checkObjTouch() {
       for (const obj of this.GETOBJECTS) {
         if (

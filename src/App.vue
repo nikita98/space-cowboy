@@ -23,23 +23,6 @@
   <router-view />
 </template>
 
-<script>
-export default {
-  methods: {
-    async register() {
-      let formData = { email: this.email, password: this.password };
-      try {
-        await this.LOGIN(formData);
-        this.$emit("closeAutorization");
-      } catch (e) {
-        this.error = e.message.match(/\/(.*)\)/)[1];
-      }
-    },
-  },
-};
-</script>
-
-
 <style lang="scss">
 #nav {
   padding: 10px;

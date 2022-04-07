@@ -1,22 +1,18 @@
 export default {
   state: {
     isGameStart: false,
-    isDocVisible: true,
     ship: [0, 0],
     gameStats: {
       id: 0,
       sizes: {
         ship: 10,
         trap: 35,
-        comet: 35,
+        comet: 15,
         coin: 20,
       },
       isGameStart: false,
       speed: 2,
-      invnsibleTime: 100,
       field: { width: 400, height: 500 },
-      trapDamage: 5,
-      coinPrice: 10
     },
     userStats: {
       maxHp: 100,
@@ -24,11 +20,10 @@ export default {
       coins: 0,
     },
     fieldObjects: [],
-
   },
+
   getters: {
     ISGAMESTART: state => state.isGameStart,
-    ISDOCVISIBLE: state => state.isGameStart,
     GETGAMESTATS: state => state.gameStats,
     GETUSERSTATS: state => state.userStats,
     GETSHIP: state => state.ship,
@@ -47,24 +42,6 @@ export default {
   mutations: {
     MOVESHIP(state, ship) {
       state.ship = ship;
-    },
-    SETTOUCHOBJECT(state, { id, value }) {
-      let obj = state.fieldObjects.find(
-        fieldObject => fieldObject.id === id
-      )
-      obj.touched = value
-    },
-    CHANGEOBJECTSIZE(state, { id, size }) {
-      let obj = state.fieldObjects.find(
-        fieldObject => fieldObject.id === id
-      )
-      obj.size = size
-    },
-    MOVEOBJECT(state, { id, coordinates }) {
-      let obj = state.fieldObjects.find(
-        fieldObject => fieldObject.id === id
-      )
-      obj.coordinates = coordinates
     },
     ADDFIELDOBJECT(state, objStats) {
       let fieldObject = {
@@ -92,6 +69,24 @@ export default {
       )
       state.fieldObjects.splice(index, 1)
     },
+    SETTOUCHOBJECT(state, { id, value }) {
+      let obj = state.fieldObjects.find(
+        fieldObject => fieldObject.id === id
+      )
+      obj.touched = value
+    },
+    CHANGEOBJECTSIZE(state, { id, size }) {
+      let obj = state.fieldObjects.find(
+        fieldObject => fieldObject.id === id
+      )
+      obj.size = size
+    },
+    MOVEOBJECT(state, { id, coordinates }) {
+      let obj = state.fieldObjects.find(
+        fieldObject => fieldObject.id === id
+      )
+      obj.coordinates = coordinates
+    },
     TAKEDMG(state, dmg) {
       state.userStats.hp -= dmg;
       if (state.userStats.hp <= 0) {
@@ -109,10 +104,7 @@ export default {
     STOPGAME(state) {
       state.isGameStart = false
     },
-    SETDOCVISIBLE(state, value) {
-      state.isDocVisible = value
-    },
-    CLEAROBJ(state) {
+    CLEAROBJECTS(state) {
       state.fieldObjects = [];
     },
     REFRESH(state) {

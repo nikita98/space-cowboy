@@ -27,9 +27,6 @@ export default {
   },
   computed: {
     ...mapGetters(["GETGAMESTATS", "GETOBJECTSBYID"]),
-    trapSize: function () {
-      return (this.GETGAMESTATS.sizes.trap * Math.sqrt(2)) / 2;
-    },
   },
   watch: {
     touched: {
@@ -49,8 +46,7 @@ export default {
       "SETTOUCHOBJECT",
     ]),
 
-    destroingObj: () => {},
-
+    destroingObj: () => {}, // Мина сжимается и исчезает
     startDestroyObj() {
       this.destroingObj = setInterval(this.destroyObj, 200);
     },
@@ -69,8 +65,9 @@ export default {
       this.CHANGEOBJECTSIZE({ id: this.id, size: this.sizeNow });
     },
   },
+
   mounted() {
-    setTimeout(this.startDestroyObj, 4000);
+    setTimeout(this.startDestroyObj, 4000); // Начинает сжиматься через 4 секунды после появления
   },
 };
 </script>

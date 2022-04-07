@@ -40,14 +40,6 @@ export default {
             }
         },
 
-        // async PERSISTENCE({ dispatch }) {
-        //     setPersistence(auth, browserLocalPersistence)
-        //         .then(function () { dispatch('LOGIN'); })
-        //         .catch(function (e) {
-        //             throw new Error(e)
-        //         });
-        // },
-
         async LOGOUT(context) {
             await signOut(auth)
             context.commit('setUser', null)

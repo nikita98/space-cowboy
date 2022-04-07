@@ -23,13 +23,7 @@ export default {
     ...mapGetters(["GETOBJECTS", "GETSHIP", "GETGAMESTATS", "ISGAMESTART"]),
   },
   methods: {
-    ...mapMutations([
-      "ADDFIELDOBJECT",
-      "ADDCOMET",
-      "SETDOCVISIBLE",
-      "CLEAROBJ",
-      "STOPGAME",
-    ]),
+    ...mapMutations(["ADDFIELDOBJECT", "ADDCOMET", "CLEAROBJECTS", "STOPGAME"]),
     addFieldObject1000: () => {},
     addComet2000: () => {},
     addComet300: () => {},
@@ -37,8 +31,10 @@ export default {
     addFieldObject(type) {
       let objSetted = 0;
       let mainObjSize = this.GETGAMESTATS.sizes[type];
+      //10 раз пытаемся найти свободное место для объекта, если не получается, не ставим его
       while (objSetted < 10) {
         let freeSpace = true;
+        //тыкаем в небо (космос)
         let coordinates = [
           mainObjSize -
             10 +
@@ -50,6 +46,7 @@ export default {
               (this.GETGAMESTATS.field.height - mainObjSize * 2 + 20),
         ];
 
+        //проверяем, есть ли место
         if (
           Math.abs(coordinates[0] - this.GETSHIP[0]) < mainObjSize + 10 &&
           Math.abs(coordinates[1] - this.GETSHIP[1]) < mainObjSize + 10
@@ -64,6 +61,8 @@ export default {
             freeSpace = false;
           }
         }
+
+        //ставим объект на поле
         if (freeSpace) {
           let objStats = {
             type,
@@ -82,21 +81,18 @@ export default {
     },
   },
   mounted() {
+    //начинаем спавн объектов
     this.addFieldObject1000 = setInterval(this.addFieldObject, 1000, "trap");
     this.addComet2000 = setInterval(this.addComet, 2000);
     this.addComet300 = setInterval(this.addComet, 300);
     this.addComet700 = setInterval(this.addComet, 700);
-    // setInterval(this.addFieldObject, 900, "coin");
-    // this.addFieldObject("trap");
+    //при смене окна браузера останавливаем игру
     document.addEventListener(
       "visibilitychange",
       () => {
-        if (document.hidden) {
-          this.SETDOCVISIBLE(false);
-        } else {
-          this.SETDOCVISIBLE(true);
+        if (!document.hidden) {
           this.STOPGAME();
-          this.CLEAROBJ();
+          this.CLEAROBJECTS();
         }
       },
       false
@@ -104,6 +100,7 @@ export default {
   },
   unmounted() {
     this.STOPGAME();
+    //прекращаем спавн объектов
     clearInterval(this.addFieldObject1000);
     clearInterval(this.addComet2000);
     clearInterval(this.addComet300);
@@ -111,6 +108,7 @@ export default {
   },
   watch: {
     ISGAMESTART: {
+      //в начале игры спавним две монетки, новые спавнятся при подборе
       handler(newValue) {
         if (newValue) {
           this.addFieldObject("coin");
@@ -124,6 +122,7 @@ export default {
 
 <style lang="scss" scoped>
 .game {
+  // кастомный курсор
   cursor: url("@/assets/c3.cur") 11 11, pointer;
   &__wrapper {
     position: relative;
