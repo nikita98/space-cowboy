@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import SpaceField from "@/components/SpaceField.vue";
-import SpaceStart from "@/components/SpaceStart.vue";
+import SpaceField from "@/components/Game/SpaceField.vue";
+import SpaceStart from "@/components/Game/SpaceStart.vue";
 import GameStats from "@/components/GameStats/GameStats.vue";
 import { mapGetters, mapMutations } from "vuex";
 export default {
@@ -103,6 +103,7 @@ export default {
     );
   },
   unmounted() {
+    this.STOPGAME();
     clearInterval(this.addFieldObject1000);
     clearInterval(this.addComet2000);
     clearInterval(this.addComet300);
@@ -123,7 +124,7 @@ export default {
 
 <style lang="scss" scoped>
 .game {
-  cursor: url("../assets/c3.cur") 11 11, pointer;
+  cursor: url("@/assets/c3.cur") 11 11, pointer;
   &__wrapper {
     position: relative;
     padding: 1px;

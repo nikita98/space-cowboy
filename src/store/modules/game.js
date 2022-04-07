@@ -4,6 +4,7 @@ export default {
     isDocVisible: true,
     ship: [0, 0],
     gameStats: {
+      id: 0,
       sizes: {
         ship: 10,
         trap: 35,
@@ -18,7 +19,7 @@ export default {
       coinPrice: 10
     },
     userStats: {
-      maxHp: 300,
+      maxHp: 100,
       hp: 0,
       coins: 0,
     },
@@ -71,7 +72,7 @@ export default {
         coordinates: objStats.coordinates,
         size: objStats.size,
         touched: false,
-        id: Math.random() * Math.pow(10, 16),
+        id: Math.trunc(Math.random() * Math.pow(10, 16)),
       };
       state.fieldObjects.push(fieldObject);
     },
@@ -81,7 +82,7 @@ export default {
         touched: false,
         size: state.gameStats.sizes.comet,
         coordinates: [0, 0],
-        id: Math.random() * Math.pow(10, 16),
+        id: Math.trunc(Math.random() * Math.pow(10, 16)),
       };
       state.fieldObjects.push(comet);
     },
@@ -102,6 +103,8 @@ export default {
     },
     STARTGAME(state) {
       state.isGameStart = true
+      state.gameStats.id = Math.trunc(Math.random() * Math.pow(10, 16)),
+        console.log(state.gameStats.id);
     },
     STOPGAME(state) {
       state.isGameStart = false

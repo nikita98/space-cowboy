@@ -3,13 +3,14 @@ import { getAuth } from 'firebase/auth'
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC85GJtRghlHVzTvnslFM5LQrwZ95M_0QE",
-  authDomain: "vuex-firebase-auth-56704.firebaseapp.com",
-  projectId: "vuex-firebase-auth-56704",
-  storageBucket: "vuex-firebase-auth-56704.appspot.com",
-  messagingSenderId: "345007795658",
-  appId: "1:345007795658:web:7d7ad30b26830b8ce9f333"
-}
+  apiKey: "AIzaSyCPCR34VFtUMy-h-g3WLLvXBKJiMXXS2nw",
+  authDomain: "space-cowboy-544b3.firebaseapp.com",
+  databaseURL: "https://space-cowboy-544b3-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "space-cowboy-544b3",
+  storageBucket: "space-cowboy-544b3.appspot.com",
+  messagingSenderId: "432621862485",
+  appId: "1:432621862485:web:fe95ef5ffe813daab3dedc"
+};
 
 // init firebase
 const app = initializeApp(firebaseConfig)

@@ -10,10 +10,15 @@ export default {
     getters: {
         GETLEADERS: state => state.leaders,
     },
+    mutations: {
+        SETLEADERS(state, data) {
+            state.leaders = data
+        },
+    },
     actions: {
-        async ADDLEADER({ userId, email, coins }) {
+        async ADDLEADER(context, { gameId, email, coins }) {
             try {
-                await set(ref(database, 'leaders/' + userId), {
+                await set(ref(database, 'leaders/' + gameId), {
                     email: email,
                     coins: coins
                 });
@@ -22,11 +27,11 @@ export default {
             }
         },
 
-        async FILLUSERS() {
-            const starCountRef = ref(database, 'posts/' + postId + '/starCount');
+        async FILLUSERS(context) {
+            const starCountRef = ref(database, 'leaders/');
             onValue(starCountRef, (snapshot) => {
                 const data = snapshot.val();
-                updateStarCount(postElement, data);
+                context.commit('SETLEADERS', data)
             });
         },
     }

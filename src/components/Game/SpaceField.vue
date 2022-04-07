@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import SpaceShip from "@/components/SpaceShip.vue";
+import SpaceShip from "@/components/Game/SpaceShip.vue";
 import SpaceTrap from "@/components/SpaceObjects/SpaceTrap.vue";
 import SpaceCoin from "@/components/SpaceObjects/SpaceCoin.vue";
 import SpaceComet from "@/components/SpaceObjects/SpaceComet.vue";

@@ -6,38 +6,12 @@
       ><span class="neone-text__gradient"></span>
     </div>
     <div class="leader-board__list">
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
-      <LeaderField />
+      <LeaderField
+        v-for="leader in leaders"
+        :key="leader"
+        :email="leader.email"
+        :coins="leader.coins"
+      />
     </div>
     <LoginInPopup
       v-if="isAutorization && isLogin"
@@ -56,7 +30,11 @@
     >
       Register
     </div>
-    <div class="btn leader-board__btn" v-else @click="isAutorization = true">
+    <div
+      class="btn leader-board__btn"
+      v-if="GETUSER && GETUSERSTATS.coins"
+      @click="addScore"
+    >
       Add my score
     </div>
   </div>
@@ -79,13 +57,40 @@ export default {
     return {
       isAutorization: false,
       isLogin: false,
+      leaders: [],
     };
   },
   computed: {
-    ...mapGetters(["GETUSER"]),
+    ...mapGetters(["GETUSER", "GETUSERSTATS", "GETGAMESTATS", "GETLEADERS"]),
+  },
+  mounted() {
+    this.FILLUSERS();
+    if (this.$route.params.startAuth && !this.GETUSER) {
+      this.isAutorization = true;
+    }
   },
   methods: {
-    ...mapActions(["LOGOUT"]),
+    ...mapActions(["LOGOUT", "ADDLEADER", "FILLUSERS"]),
+    addScore() {
+      this.ADDLEADER({
+        gameId: this.GETGAMESTATS.id,
+        email: this.GETUSER.email,
+        coins: this.GETUSERSTATS.coins,
+      });
+    },
+  },
+  watch: {
+    GETLEADERS: {
+      handler(newValue) {
+        if (newValue) {
+          this.leaders = Object.values(newValue);
+          console.log(this.leaders);
+          this.leaders.sort(function (a, b) {
+            return b.coins - a.coins;
+          });
+        }
+      },
+    },
   },
 };
 </script>

@@ -9,7 +9,7 @@
 import LeaderBoard from "@/components/Auth/LeaderBoard.vue";
 
 export default {
-  name: "AboutView",
+  name: "ScoreView",
   components: {
     LeaderBoard,
   },

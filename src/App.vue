@@ -12,7 +12,7 @@
         <span class="neone-text__gradient"></span>
       </div>
     </router-link>
-    <router-link to="/about" class="info-link">
+    <router-link to="/score" class="info-link">
       <div class="neone-text">
         <span class="neone-text__txt">Score</span>
         <span class="neone-text__shadow">Score</span>
@@ -22,6 +22,23 @@
   </div>
   <router-view />
 </template>
+
+<script>
+export default {
+  methods: {
+    async register() {
+      let formData = { email: this.email, password: this.password };
+      try {
+        await this.LOGIN(formData);
+        this.$emit("closeAutorization");
+      } catch (e) {
+        this.error = e.message.match(/\/(.*)\)/)[1];
+      }
+    },
+  },
+};
+</script>
+
 
 <style lang="scss">
 #nav {

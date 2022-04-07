@@ -2,8 +2,6 @@
 import { auth } from '../../firebase/config'
 
 import {
-    setPersistence,
-    browserLocalPersistence,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
@@ -24,7 +22,6 @@ export default {
     },
     actions: {
         async REGISTRATION(context, { email, password }) {
-            setPersistence(auth, browserLocalPersistence)
             try {
                 await createUserWithEmailAndPassword(auth, email, password)
                 context.commit('setUser', { email, password })
@@ -35,7 +32,6 @@ export default {
         },
 
         async LOGIN(context, { email, password }) {
-            setPersistence(auth, browserLocalPersistence)
             try {
                 await signInWithEmailAndPassword(auth, email, password)
                 context.commit('setUser', { email, password })
@@ -43,6 +39,14 @@ export default {
                 throw new Error(e)
             }
         },
+
+        // async PERSISTENCE({ dispatch }) {
+        //     setPersistence(auth, browserLocalPersistence)
+        //         .then(function () { dispatch('LOGIN'); })
+        //         .catch(function (e) {
+        //             throw new Error(e)
+        //         });
+        // },
 
         async LOGOUT(context) {
             await signOut(auth)
