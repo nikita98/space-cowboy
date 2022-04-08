@@ -122,8 +122,6 @@ export default {
 
 <style lang="scss" scoped>
 .game {
-  // кастомный курсор
-  cursor: url("@/assets/c3.cur") 11 11, pointer;
   &__wrapper {
     position: relative;
     padding: 1px;

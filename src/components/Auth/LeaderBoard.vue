@@ -84,7 +84,6 @@ export default {
       handler(newValue) {
         if (newValue) {
           this.leaders = Object.values(newValue);
-          console.log(this.leaders);
           this.leaders.sort(function (a, b) {
             return b.coins - a.coins;
           });

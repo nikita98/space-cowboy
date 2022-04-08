@@ -76,6 +76,8 @@ export default {
 
 <style lang="scss" scoped>
 .space-field {
+  // кастомный курсор
+  cursor: url("@/assets/c3.cur") 11 11, pointer;
   position: relative;
   background-color: #000;
   overflow: hidden;

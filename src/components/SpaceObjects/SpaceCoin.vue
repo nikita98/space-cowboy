@@ -11,9 +11,12 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 
 export default {
+  data() {
+    return { startSize: Number, startDecreasing: false };
+  },
   props: {
     id: Number,
     coordinates: Array,
@@ -25,14 +28,49 @@ export default {
       handler(newValue) {
         if (newValue) {
           this.TAKECOIN(1);
-          this.DELETEFIELDOBJECT(this.id);
+          this.startDestroyObj();
           this.$emit("addCoin");
         }
       },
     },
   },
+  mounted() {
+    this.startSize = this.size;
+  },
+  computed: {
+    ...mapGetters(["GETOBJECTSBYID"]),
+  },
   methods: {
-    ...mapMutations(["DELETEFIELDOBJECT", "TAKECOIN"]),
+    ...mapMutations(["CHANGEOBJECTSIZE", "DELETEFIELDOBJECT", "TAKECOIN"]),
+
+    destroingObj: () => {},
+    startDestroyObj() {
+      this.destroingObj = setInterval(this.destroyObj, 10);
+    },
+    destroyObj() {
+      let sizeNow = this.size;
+      if (!this.GETOBJECTSBYID(this.id)) {
+        clearInterval(this.startDestroyObj);
+        return;
+      }
+      if (sizeNow < 5) {
+        this.DELETEFIELDOBJECT(this.id);
+        clearInterval(this.startDestroyObj);
+        return;
+      }
+
+      if (!this.startDecreasing) {
+        if (sizeNow - this.startSize < 5) {
+          sizeNow += 1;
+        } else {
+          this.startDecreasing = true;
+        }
+      } else {
+        sizeNow -= 1;
+      }
+
+      this.CHANGEOBJECTSIZE({ id: this.id, size: sizeNow });
+    },
   },
 };
 </script>

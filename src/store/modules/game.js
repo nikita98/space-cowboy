@@ -98,8 +98,7 @@ export default {
     },
     STARTGAME(state) {
       state.isGameStart = true
-      state.gameStats.id = Math.trunc(Math.random() * Math.pow(10, 16)),
-        console.log(state.gameStats.id);
+      state.gameStats.id = Math.trunc(Math.random() * Math.pow(10, 16))
     },
     STOPGAME(state) {
       state.isGameStart = false

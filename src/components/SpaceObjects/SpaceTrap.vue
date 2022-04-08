@@ -4,8 +4,8 @@
     :style="{
       left: coordinates[0] + 'px',
       top: coordinates[1] + 'px',
-      width: sizeNow + 'px',
-      height: sizeNow + 'px',
+      width: size + 'px',
+      height: size + 'px',
     }"
   ></div>
 </template>
@@ -19,11 +19,6 @@ export default {
     coordinates: Array,
     size: Number,
     touched: Boolean,
-  },
-  data() {
-    return {
-      sizeNow: this.size,
-    };
   },
   computed: {
     ...mapGetters(["GETGAMESTATS", "GETOBJECTSBYID"]),
@@ -51,18 +46,19 @@ export default {
       this.destroingObj = setInterval(this.destroyObj, 200);
     },
     destroyObj() {
+      let sizeNow = this.size;
       if (!this.GETOBJECTSBYID(this.id)) {
         clearInterval(this.startDestroyObj);
         return;
       }
-      if (this.sizeNow < 5) {
+      if (sizeNow < 5) {
         this.DELETEFIELDOBJECT(this.id);
         clearInterval(this.startDestroyObj);
         return;
       }
 
-      this.sizeNow -= 1;
-      this.CHANGEOBJECTSIZE({ id: this.id, size: this.sizeNow });
+      sizeNow -= 1;
+      this.CHANGEOBJECTSIZE({ id: this.id, size: sizeNow });
     },
   },
 
