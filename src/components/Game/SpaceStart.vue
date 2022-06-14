@@ -1,5 +1,9 @@
 <template>
   <div class="space-start">
+    <div class="space-start__instruction" v-if="!(GETUSERSTATS.coins > 0)">
+      Collect gold coins and <br />
+      dodge everything else
+    </div>
     <div class="btn" @click="startGame()">Start</div>
     <div
       class="space-start__score-link btn"
@@ -51,6 +55,11 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  color: #7c9bff;
+
+  &__instruction {
+    margin-bottom: 10%;
+  }
 
   &__top {
     position: absolute;

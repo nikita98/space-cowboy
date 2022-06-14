@@ -64,3 +64,72 @@ body {
     text-align: center;
     color: #bbb;
 }
+
+.neone-text {
+    font-family: "Permanent Marker";
+    font-size: 60px;
+    position: relative;
+    margin: auto;
+    display: inline-flex;
+
+    &__txt {
+        color: #fff;
+        padding: 10px;
+        // text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #5271ff,
+        //   0 0 82px #5271ff, 0 0 92px #5271ff, 0 0 102px #5271ff, 0 0 151px #5271ff;
+    }
+
+    &__shadow {
+        color: #fff;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        mix-blend-mode: difference;
+        filter: blur(1px);
+    }
+
+    &__gradient {
+        // background: linear-gradient(90deg,
+        //         rgba(201, 21, 173, 1) 0%,
+        //         rgba(15, 1, 171, 1) 60%,
+        //         rgba(30, 155, 185, 1) 100%);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 100%;
+        width: 100%;
+        mix-blend-mode: color;
+        animation: changeBg infinite 1s linear;
+    }
+}
+
+
+@keyframes changeBg {
+
+    0%,
+    100% {
+        background: linear-gradient(90deg,
+                rgb(201, 21, 171) 0%,
+                rgb(19, 1, 207) 50%,
+                rgb(30, 155, 185) 100%);
+    }
+
+    50% {
+        background: linear-gradient(90deg,
+                rgb(210, 30, 180) 0%,
+                rgb(28, 10, 216) 50%,
+                rgb(39, 164, 194) 100%);
+    }
+}
+
+.neone-text_addition {
+    position: absolute;
+    left: 71%;
+    top: 74%;
+    transform: rotate(-16deg);
+    font-size: 25px;
+    white-space: nowrap;
+    background-color: #000;
+    border: 1px solid #000;
+}
